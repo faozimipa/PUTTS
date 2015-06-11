@@ -3,7 +3,6 @@
 class PUTTS {
 
     const VOICE_PATH = "Voices/";
-    const DEBUG_MODE = false;
 
     static $voices = [];
     static $instance = false;
@@ -39,6 +38,11 @@ class PUTTS {
         return $this->language;
     }
 
+    /**
+     * Initialise all available voices
+     *
+     * @throws Exception
+     */
     protected function getVoices(){
         $dir = scandir(self::VOICE_PATH);
         if(!$dir){

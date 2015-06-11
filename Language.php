@@ -7,13 +7,19 @@ abstract class Language {
 
     public function __construct($name, $countryCode){
         $this->name = $name;
-        $this->code = $countryCode;
+        $this->code = $countryCode; //e.g de_DE, en_US ...
     }
 
+    /**
+     * @return string
+     */
     public function getName(){
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function getCode(){
         return $this->code;
     }

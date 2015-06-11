@@ -8,19 +8,29 @@ class BrowserWav {
         $this->speech = $speech;
     }
 
+    /**
+     * @return array
+     */
     public function getSpeechArray(){
         return $this->speech;
     }
 
+    /**
+     * @return string
+     */
     public function getSpeechString(){
         return implode(" ", $this->speech);
     }
 
+    /**
+     * Creates direct Browser output
+     *
+     * @param Voice $voice
+     */
     public function speak(Voice $voice){
         header("Content-Type: audio/x-wav");
         $files = [];
         foreach($this->getSpeechArray() as $word){
-            //echo $voice->getDataFolder().$word.".wav<br>";
             $files[] = $voice->getDataFolder().$word.".wav"; //Create a full path
         }
         $data = $this->joinwavs($files);

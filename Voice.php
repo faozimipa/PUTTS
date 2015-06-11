@@ -10,7 +10,10 @@ class Voice {
         $this->dataFolder = $dataFolder;
     }
 
-
+    /**
+     * @param $string
+     * @return BrowserWav
+     */
     public function speakString($string){
         $words = explode(" ", $string);
         $spoken = [];
@@ -31,6 +34,11 @@ class Voice {
         return new BrowserWav($spoken);
     }
 
+    /**
+     * Checks if a voice is compatible with the language
+     *
+     * @return bool
+     */
     public function useable(){
         $required = PUTTS::getInstance()->getLanguage()->getRequired();
         foreach($required as $audio){
@@ -43,18 +51,33 @@ class Voice {
         return true;
     }
 
+    /**
+     * Checks if a specific voice file exists
+     *
+     * @param $file
+     * @return bool
+     */
     public function existsVoiceFile($file){
         return file_exists($this->getDataFolder().$file.".wav");
     }
 
+    /**
+     * @return string
+     */
     public function getName(){
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function getDataFolder(){
         return $this->dataFolder."/";
     }
 
+    /**
+     * @return array
+     */
     public function getDataFolderContents(){
         return scandir($this->dataFolder);
     }
