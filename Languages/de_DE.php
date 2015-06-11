@@ -11,15 +11,14 @@ class de_DE extends Language {
             if(in_array($number, $this->getRequired())){
                 return [$number];
             } else {
-                /*$numberSounds = [];
+                $numberArray = str_split($number);
+                $numberSounds = [];
                 $length = strlen($number);
 
-                $tens = ($length / 10);
-                $one = $length / 1;
-                $hundred = ($length / 10);
-                $thousands = ($length / 10);
-
-                echo $thousands.$hundred.$tens.$one."\n";
+                $one = (isset($numberArray[$length - 2]) ? $numberArray[$length - 2]."0" : $numberArray[$length - 1]);
+                $tens = (isset($numberArray[$length - 2]) ? $numberArray[$length - 2] : 0);
+                $hundred = (isset($numberArray[$length - 3]) ? $numberArray[$length - 3] : 0);
+                $thousands = (isset($numberArray[$length - 4]) ? $numberArray[$length - 4] : 0);
 
                 if($thousands > 0){
                     $numberSounds = array_merge($numberSounds, $this->getThousand($thousands));
@@ -35,7 +34,7 @@ class de_DE extends Language {
                     $numberSounds = array_merge($numberSounds, [$one]);
                 }
 
-                return $numberSounds;*/
+                return $numberSounds;
             }
         }
         return false;
@@ -50,7 +49,7 @@ class de_DE extends Language {
     }
 
     public function getTens($tens, $one){
-        return [$one, "und", $tens];
+        return [$tens, "und", $one];
     }
 
     public function getRequired(){

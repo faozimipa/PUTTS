@@ -10,7 +10,9 @@ class Voice {
         $this->dataFolder = $dataFolder;
 
         if(!$this->useable()){
-            throw new Exception("This voice is not compatible to language ".PUTTS::getInstance()->getLanguage()->getCode()."!");
+            if(!PUTTS::DEBUG_MODE){
+                throw new Exception("This voice is not compatible to language ".PUTTS::getInstance()->getLanguage()->getCode()."!");
+            }
         }
     }
 
