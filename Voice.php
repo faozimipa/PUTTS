@@ -18,7 +18,23 @@ class Voice {
 
 
     public function speakString($string){
-
+        $words = explode(" ", $string);
+        $spoken = [];
+        foreach($words as $word){
+            if(is_numeric($word) and strlen($word) < 5){
+                $spoken = array_merge($spoken ,PUTTS::getInstance()->getLanguage()->sayNumber($word));
+            } elseif ($this->existsVoiceFile(strtolower($word))){
+                $spoken[] = $word;
+            } else {
+                $chopped = str_split($word);
+                foreach($chopped as $part){
+                    if($this->existsVoiceFile(strtolower($word))){
+                        $spoken[] = $part;
+                    }
+                }
+            }
+        }
+        return new BrowserWav($spoken);
     }
 
     public function useable(){
@@ -42,7 +58,7 @@ class Voice {
     }
 
     public function getDataFolder(){
-        return $this->dataFolder;
+        return $this->dataFolder."/";
     }
 
     public function getDataFolderContents(){

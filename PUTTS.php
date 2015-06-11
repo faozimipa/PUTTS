@@ -3,7 +3,7 @@
 class PUTTS {
 
     const VOICE_PATH = "Voices/";
-    const DEBUG_MODE = true;
+    const DEBUG_MODE = false;
 
     static $voices = [];
     static $instance = false;

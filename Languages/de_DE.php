@@ -15,7 +15,7 @@ class de_DE extends Language {
                 $numberSounds = [];
                 $length = strlen($number);
 
-                $one = (isset($numberArray[$length - 2]) ? $numberArray[$length - 2]."0" : $numberArray[$length - 1]);
+                $one = $numberArray[$length - 1];
                 $tens = (isset($numberArray[$length - 2]) ? $numberArray[$length - 2] : 0);
                 $hundred = (isset($numberArray[$length - 3]) ? $numberArray[$length - 3] : 0);
                 $thousands = (isset($numberArray[$length - 4]) ? $numberArray[$length - 4] : 0);
@@ -49,7 +49,7 @@ class de_DE extends Language {
     }
 
     public function getTens($tens, $one){
-        return [$tens, "und", $one];
+        return [$one, "und", $tens."0"];
     }
 
     public function getRequired(){
