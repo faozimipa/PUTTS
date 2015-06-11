@@ -8,4 +8,4 @@ include("BrowserWav.php");
 
 $putts = new PUTTS(new de_DE());
 $voice = $putts->getVoice("Niki");
-$voice->speakString($_GET["t"])->speak($voice);
+$voice->speakString(strtolower($_GET["t"]))->speak($voice);

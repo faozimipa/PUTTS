@@ -8,12 +8,6 @@ class Voice {
     public function __construct($name, $dataFolder){
         $this->name = $name;
         $this->dataFolder = $dataFolder;
-
-        if(!$this->useable()){
-            if(!PUTTS::DEBUG_MODE){
-                throw new Exception("This voice is not compatible to language ".PUTTS::getInstance()->getLanguage()->getCode()."!");
-            }
-        }
     }
 
 
