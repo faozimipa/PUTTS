@@ -5,13 +5,19 @@
  * You can edit the constants below
  * to generate your personalised Audio.
  *
- * Put PUTTS in your web-directory and access this file with
- * your browser. Add '?t=<Your Text>' to the url. (Tested in Google Chrome).
+ * Run this script with the Command Line.
+ * A file "output.wav" will be created.
  */
+
+echo "Enter a string >>> ";
+
+$window = fopen("php://stdin", "r");
+$string = fread($window, 20000);
+fclose($window);
 
 //Options
 define("USE_VOICE", "Niki");
-define("TALK_STRING", strtolower($_GET["t"]));
+define("TALK_STRING", $string);
 
 
 
@@ -24,4 +30,4 @@ include("BrowserWav.php");
 
 $putts = new PUTTS(new de_DE());
 $voice = $putts->getVoice(USE_VOICE);
-$voice->speakString(TALK_STRING)->speak($voice);
+file_put_contents("output.wav", $voice->speakString(TALK_STRING)->speak($voice, false));
