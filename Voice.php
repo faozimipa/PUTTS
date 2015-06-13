@@ -25,7 +25,7 @@ class Voice {
             } else {
                 $chopped = str_split($word);
                 foreach($chopped as $part){
-                    if($this->existsVoiceFile(strtolower($word))){
+                    if($this->existsVoiceFile(strtolower($part))){
                         $spoken[] = $part;
                     }
                 }
