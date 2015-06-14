@@ -10,6 +10,7 @@
  * in the same folder It will be overwritten if it exists.
  */
 
+ini_set("date.timezone", "CET");
 echo "Enter a string >>> ";
 
 $window = fopen("php://stdin", "r");
@@ -31,3 +32,5 @@ include("Languages/de_DE.php");
 
 $putts = new PUTTS(new de_DE(), new Wav()); //Set language and data-provider
 file_put_contents("output.wav", PUTTS::getVoice(USE_VOICE)->speakString(TALK_STRING)->getOutput(PUTTS::getVoice(USE_VOICE)));
+$putts->setDataProvider(new Wav());
+file_put_contents("german_time.wav", PUTTS::getVoice(USE_VOICE)->speakString("es ist jetzt ".date("G")." uhr ".(int)date("i"))->getOutput(PUTTS::getVoice(USE_VOICE)));
