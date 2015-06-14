@@ -11,15 +11,15 @@ class Voice {
     }
 
     /**
-     * @param $string
-     * @return BrowserWav
+     * @param string
+     * @return DataProvider
      */
     public function speakString($string){
         $words = explode(" ", $string);
         $spoken = [];
         foreach($words as $word){
             if(is_numeric($word) and strlen($word) < 5){
-                $spoken = array_merge($spoken ,PUTTS::getInstance()->getLanguage()->sayNumber($word));
+                $spoken = array_merge($spoken, PUTTS::getInstance()->getLanguage()->sayNumber($word));
             } elseif ($this->existsVoiceFile(strtolower($word))){
                 $spoken[] = $word;
             } else {
@@ -31,7 +31,8 @@ class Voice {
                 }
             }
         }
-        return new BrowserWav($spoken);
+        PUTTS::getInstance()->getDataProvider()->setSpeech($spoken);
+        return PUTTS::getInstance()->getDataProvider();
     }
 
     /**

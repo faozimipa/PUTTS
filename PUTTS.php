@@ -23,12 +23,28 @@ class PUTTS {
     }
 
     private $language;
+    private $dataProvider;
 
-    public function __construct(Language $language){
+    public function __construct(Language $language, DataProvider $dataProvider){
         self::$instance = $this;
         $this->language = $language;
+        $this->dataProvider = $dataProvider;
 
         $this->getVoices(); //Initialise
+    }
+
+    /**
+     * @return DataProvider
+     */
+    public function getDataProvider(){
+        return $this->dataProvider;
+    }
+
+    /**
+     * @param DataProvider $provider
+     */
+    public function setDataProvider(DataProvider $provider){
+        $this->dataProvider = $provider;
     }
 
     /**

@@ -1,50 +1,19 @@
 <?php
 
-class BrowserWav {
-
-    private $speech;
-
-    public function __construct(array $speech){
-        $this->speech = $speech;
-    }
+class Wav extends DataProvider{
 
     /**
-     * @return array
-     */
-    public function getSpeechArray(){
-        return $this->speech;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSpeechString(){
-        return implode(" ", $this->speech);
-    }
-
-    /**
-     * Creates direct Browser output
+     * Creates a playable .wav file
      *
      * @param Voice $voice
      * @return string
      */
-    public function speak(Voice $voice, $header = false){
-        if($header)
-            header("Content-Type: audio/x-wav");
-
+    public function getOutput(Voice $voice){
         $files = [];
-        foreach($this->getSpeechArray() as $word){
+        foreach($this->getSpeech() as $word){
             $files[] = $voice->getDataFolder().$word.".wav"; //Create a full path
         }
-        $data = $this->joinwavs($files);
-        return $data;
-    }
-
-    /**
-     * @param Voice $voice
-     */
-    public function speakToBrowser(Voice $voice, $header){
-        echo $this->speak($voice, $header);
+        return $this->joinwavs($files);
     }
 
     /**
@@ -61,7 +30,8 @@ class BrowserWav {
             'vAudioFormat', 'vNumChannels', 'VSampleRate',
             'VByteRate', 'vBlockAlign', 'vBitsPerSample' ));
         $data = '';
-        foreach($wavs as $wav){
+        foreach($wavs as $key => $wav){
+            echo "Adding wav ".($key + 1)." of ".count($wavs)." (".round(($key + 1) / (count($wavs) / 100), 2)."%) \n";
             $fp     = fopen($wav,'rb');
             $header = fread($fp,36);
             $info   = unpack($fields,$header);

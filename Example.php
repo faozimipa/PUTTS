@@ -6,28 +6,28 @@
  * to generate your personalised Audio.
  *
  * Run this script with the Command Line.
- * A file "output.wav" will be created.
+ * A file with the name "output.wav" will be created
+ * in the same folder It will be overwritten if it exists.
  */
 
 echo "Enter a string >>> ";
 
 $window = fopen("php://stdin", "r");
-$string = fread($window, 20000);
+$string = str_replace("\n", "", strtolower(fread($window, 20000)));
 fclose($window);
 
 //Options
 define("USE_VOICE", "Niki");
 define("TALK_STRING", $string);
 
+echo "Speaking '".$string."'....\n";
 
-
-
+include("DataProvider.php");
+include("DataProvider/Wav.php");
 include("PUTTS.php");
 include("Voice.php");
 include("Language.php");
 include("Languages/de_DE.php");
-include("BrowserWav.php");
 
-$putts = new PUTTS(new de_DE());
-$voice = $putts->getVoice(USE_VOICE);
-file_put_contents("output.wav", $voice->speakString(TALK_STRING)->speak($voice, false));
+$putts = new PUTTS(new de_DE(), new Wav()); //Set language and data-provider
+file_put_contents("output.wav", PUTTS::getVoice(USE_VOICE)->speakString(TALK_STRING)->getOutput(PUTTS::getVoice(USE_VOICE)));
